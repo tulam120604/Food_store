@@ -61,6 +61,13 @@
       "nameAcc": "user2",
       "confirmPassword": "123456",
       "id": 3
+    },
+    {
+      "email": "123@abc.jqk",
+      "password": "$2a$10$ueyTWPFxznMvUg2VKuH2Ie7Nsj1CfdKzgr2XBBrXicqT5/JcGQIwy",
+      "nameAcc": "user1",
+      "confirmPassword": "123456",
+      "id": 4
     }
   ],
   "products": [
@@ -301,6 +308,20 @@
       "image": "../src/assets/images/hamburge1.png",
       "loai": 1,
       "price": 69000
+    },
+    {
+      "image": "https://picsum.photos/id/1/200/300",
+      "name": "hambuger",
+      "price": "96000",
+      "loai": 1,
+      "id": 35
+    },
+    {
+      "image": "https://picsum.photos/id/1/200/300",
+      "name": "hambuger",
+      "price": "96000",
+      "loai": 1,
+      "id": 36
     }
   ]
 }

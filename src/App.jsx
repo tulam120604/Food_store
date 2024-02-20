@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import './App.css'
-import { addProducts, deleteProducts, editProducts, getOneProduct, getProducts } from './CallApi/products'
+import { addProducts, deleteProducts, editProducts, getProducts } from './CallApi/products'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Client from './ClientPage/Client'
 import OurMenuClient from './ClientPage/HomeClientPage/OurMenuClient'
@@ -21,9 +21,13 @@ import Sua_Thuc_Don from './AdminPage/Page/Sua_Thuc_Don'
 import OneProductClient from './ClientPage/ProductsClientPage/OneProductClient'
 import Cart_Page from './ClientPage/Cart/cart'
 import Thanh_Toan from './ClientPage/ThanhToan/ThanhToan'
+import Swal from 'sweetalert2'
+import instance from './CallApi/config'
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const dataContextProducts = createContext()
+export const soLuongTrangClient = createContext();
 
 
 function App() {
@@ -52,16 +56,6 @@ function App() {
   }
   useEffect(dataAllProducts, [])
 
-  // lấy 1 sản phẩm
-  const [oneProduct, setOneProduct] = useState([])
-  const dataOneProduct = (idProduct) => {
-    (async () => {
-      const data = await getOneProduct(idProduct);
-      setOneProduct(data)
-    })()
-  }
-  useEffect(dataOneProduct, [])
-
   // thêm sản phẩm  
   const Them_Product = async (productNew) => {
     try {
@@ -77,10 +71,30 @@ function App() {
   // xóa sản phẩm
   const handleRemove = async (idProducts) => {
     try {
-      await deleteProducts(idProducts);
-      const products_con_lai = products.filter((item) => item.id !== idProducts);
-      setProducts(products_con_lai);
-      toast.success("Đã xóa thực đơn.", { autoClose: 1200 })
+      await
+        Swal.fire({
+          title: `Chắc chắn xóa sản phẩm mã ${idProducts} ?`,
+          text: "Chọn xác nhận để xóa, hoặc hủy để hủy thao tác !",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Xác nhận!",
+          cancelButtonText: "Hủy!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteProducts(idProducts);
+            const products_con_lai = products.filter((item) => item.id !== idProducts);
+            setProducts(products_con_lai);
+            toast.success("Đã xóa thực đơn.", { autoClose: 1200 })
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }
+        });
+
     } catch (error) {
       console.log(error);
     }
@@ -98,13 +112,34 @@ function App() {
   }
 
 
+  // PAGE
+  const [soLuongPage, setSoLuongPage] = useState([])
+  const listTrang = async () => {
+    try {
+      const { data } = await instance.get('pagesClient');
+      setSoLuongPage(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(listTrang, []);
 
   // ACCOUNT
   // tạo tài khoản
   const handleCreateAccount = async (newAcc) => {
     try {
-      const data = await create_account(newAcc)
-      console.log(data);
+      await create_account(newAcc);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      setTimeout(() => {
+        goPage('/login')
+      }, 1500)
+
     } catch (error) {
       console.log(error);
     }
@@ -134,12 +169,27 @@ function App() {
 
   // đăng xuất :
   const handleDangXuat = () => {
-    const confirm = window.confirm('Xác nhận đăng xuất ?');
-    if (confirm) {
-      localStorage.clear()
-      toast.success('Đã đăng xuất.', { autoClose: 1200 })
-      goPage('/')
-    }
+    Swal.fire({
+      title: `Xác nhận đăng xuất tài khoản?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Xác nhận!",
+      cancelButtonText: "Hủy!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear()
+        Swal.fire({
+          title: "Đăng xuất thành công",
+          icon: "success"
+        });
+        goPage('/')
+        setTimeout(() => {
+          goPage(0)
+        }, 1000)
+      }
+    });
   }
 
   // _______________ADMIN________________
@@ -209,7 +259,9 @@ function App() {
         <Route path='/adminstration' element={<AdminStrationsPage
           page={adminstrationPage}
         />}>
-          <Route path='quan_li_menu' element={<AllMenu />} />
+          <Route path='quan_li_menu' element={<soLuongTrangClient.Provider value={soLuongPage}>
+            <AllMenu />
+          </soLuongTrangClient.Provider>} />
           <Route path='quan_li_thuc_don' element={<All_Thuc_Don
             SP={products}
             onRemove={handleRemove} />} />

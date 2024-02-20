@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../styles/login/Login.css'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react';
-import Success from './Success';
 
 
 
 const CreateAccount = ({ createAccount }) => {
-    const [successBox, setSuccessBox] = useState(false)
     const [confirmPass, setConfirmPass] = useState('');
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const chuyenTrang = useNavigate();
 
     const handleCreateAcc = (dataForm) => {
         // console.log(dataForm);
@@ -21,12 +18,10 @@ const CreateAccount = ({ createAccount }) => {
         }
         else {
             console.log('đã đúng');
-            setSuccessBox(true)
             createAccount(dataForm);
-            setTimeout(() => {
-                setSuccessBox(false);
-                chuyenTrang('/login')
-            }, 2000)
+            // setTimeout(() => {
+            //     chuyenTrang('/login')
+            // }, 2000)
         }
     }
 
@@ -41,13 +36,12 @@ const CreateAccount = ({ createAccount }) => {
         }
     }
 
-
     return (<>
         <div className="loginAccount">
             <div className="form-body">
                 <div className="row">
                     <div className="form-holder">
-                        <div style={{ opacity: successBox ? '0.4' : '1' }} className="form-content">
+                        <div className="form-content">
                             <div className="form-items">
                                 <h3 className='capitalize text-center'>đăng kí</h3>
                                 <form className="requires-validation" onSubmit={handleSubmit(handleCreateAcc)}>
@@ -91,9 +85,6 @@ const CreateAccount = ({ createAccount }) => {
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                        <div style={{ display: successBox ? 'block' : 'none' }} className="success_Box">
-                            <Success />
                         </div>
                     </div>
                 </div>
