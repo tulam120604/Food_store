@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.saleClientPage {
+    width: 100%;
+    display: flex;
+    background: #292933;
+    padding: 5vh 0;
+    justify-content: center;
+
+    .saleClient {
+        width: 80%;
+        display: grid;
+        grid-template-columns: 45% 50%;
+        column-gap: 5%;
+
+        .left {
+            display: flex;
+            color: aliceblue;
+            flex-direction: column;
+            justify-content: center;
+
+            h4 {
+                font-size: 7vh;
+                display: flex;
+                flex-direction: column;
+                text-transform: capitalize;
+                font-weight: 600;
+                -webkit-text-stroke: 2px;
+                letter-spacing: 2px;
+                font-family: "Outfit", sans-serif;
+
+                span {
+                    font-size: 8vh;
+                    -webkit-text-stroke: 3px;
+                    letter-spacing: 4px;
+                    color: #FDB500;
+                }
+            }
+
+            p {
+                font-size: 3vh;
+                word-wrap: break-word;
+                font-family: "Outfit", sans-serif;
+                opacity: 0.8;
+                font-weight: 300;
+            }
+
+            section {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+
+                span {
+                    font-size: 15vh;
+                    font-weight: 600;
+                    -webkit-text-stroke: 10px;
+                    letter-spacing: 5px;
+                    color: #FDB500;
+                }
+
+                button {
+                    height: 50px;
+                    padding: 0px 30px;
+                    background: #FDB500;
+                    border-radius: 10px;
+                    text-transform: capitalize;
+                    font-weight: 500;
+                    letter-spacing: 0.3px;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    font-size: 2.5vh;
+                }
+
+                button:hover {
+                    scale: 1.1;
+                    transition: 0.3s;
+                }
+            }
+        }
+    }
+}

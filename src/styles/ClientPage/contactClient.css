@@ -1,0 +1,108 @@
+.contact_client_page {
+    width: 100%;
+    display: flex;
+    background: linear-gradient(#F7F7F7, #ffff);
+    justify-content: center;
+    padding-bottom: 100px;
+
+    .contact_client {
+        width: 80%;
+        padding-bottom: 10vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span {
+            display: flex;
+            font-size: 6vh;
+            font-weight: 700;
+            -webkit-text-stroke: 2px;
+            letter-spacing: 2px;
+            color: black;
+            text-transform: capitalize;
+
+            b {
+                text-transform: capitalize;
+                color: #DA9C00;
+                -webkit-text-stroke: 1.5px;
+                margin-left: 1vh;
+            }
+        }
+
+        p {
+            width: 35%;
+            font-size: 2.5vh;
+            word-wrap: break-word;
+            font-family: "Outfit", sans-serif;
+            opacity: 0.9;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 5vh;
+            margin-top: 2vh;
+        }
+
+        .box_message {
+            display: grid;
+            grid-template-columns: 55% 35%;
+            column-gap: 10%;
+
+            .left {
+                section {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 40% 40%;
+                    column-gap: 20%;
+
+                    .contact {
+                        display: flex;
+                        flex-direction: column;
+
+                        label {
+                            font-size: 3.5vh;
+                            text-transform: uppercase;
+                            opacity: 0.9;
+                            -webkit-text-stroke: 0.3px;
+                            letter-spacing: 0.3px;
+                        }
+
+                        input {
+                            width: 100%;
+                            height: 5vh;
+                            background: none;
+                            outline: none;
+                            transition: 0.3s;
+                            border-bottom: 2px solid rgb(163, 161, 161);
+                            font-weight: 450;
+                            -webkit-text-stroke: 0.1px;
+                            font-size: 2vh;
+                            letter-spacing: 0.2px;
+                            opacity: 0.8;
+                            margin-top: 0.5vh;
+                        }
+                    }
+                }
+
+                button {
+                    padding: 1.5vh 7vh;
+                    background: #FFB600;
+                    font-size: 2vh;
+                    font-weight: 450;
+                    -webkit-text-stroke: 0.4px;
+                    text-transform: capitalize;
+                    color: aliceblue;
+                    border-radius: 10px;
+                    border: none;
+                    letter-spacing: 1px;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    margin-top: 5vh;
+                }
+
+                button:hover {
+                    scale: 1.05;
+                    transition: 0.3s;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,115 @@
+.banerClient {
+    width: 100%;
+    display: flex;
+    background: #292933;
+    justify-content: center;
+    border-radius: 0% 100% 73% 27% / 78% 0% 92% 22%;
+
+    .banerPageClient {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        padding-top: 80px;
+
+        .searchClient {
+            display: flex;
+            margin-top: 2vh;
+
+            input {
+                background: #1f1f27;
+                border: none;
+                padding: 0.5vh 4vh 0.5vh 2vh;
+                outline: none;
+                color: aliceblue;
+                text-transform: capitalize;
+                border-radius: 1vh;
+            }
+
+            img {
+                transform: translateX(-110%);
+                padding: 0.5vh;
+                cursor: pointer;
+                transition: 0.3s;
+                filter: brightness(0) invert(1);
+                opacity: 0.7;
+            }
+
+            img:hover {
+                transition: 0.3s;
+                opacity: 1;
+            }
+        }
+
+        .baner {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            height: 65vh;
+            margin-top: 8vh;
+
+            .left {
+
+                h3 {
+                    display: flex;
+                    font-size: 4vh;
+                    font-weight: 500;
+                    -webkit-text-stroke: 1px;
+                    letter-spacing: 2px;
+                    color: aliceblue;
+                    text-transform: uppercase;
+
+                    span {
+                        color: #DA9C00;
+                    }
+                }
+
+                p {
+                    font-size: 6vh;
+                    font-weight: 400;
+                    -webkit-text-stroke: 1px;
+                    color: aliceblue;
+                    letter-spacing: 3px;
+                    flex-wrap: wrap;
+                    text-transform: uppercase;
+                    margin: 5vh 0;
+                }
+
+                a {
+                    border: 0.3vh solid #DA9C00;
+                    background: none;
+                    padding: 10px 30px;
+                    font-size: 2.5vh;
+                    font-weight: 450;
+                    -webkit-text-stroke: 0.2px;
+                    text-transform: capitalize;
+                    color: aliceblue;
+                    border-radius: 15px;
+                    letter-spacing: 1px;
+                    transition: 0.3s;
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    scale: 1..05;
+                    background: #DA9C00;
+                    transition: 0.3s;
+                }
+            }
+
+            .right {
+                display: flex;
+                justify-content: end;
+
+                img {
+                    width: 70%;
+                    height: 70%;
+                    filter: drop-shadow(0mm 1mm 1mm rgb(73, 73, 73));
+                }
+            }
+        }
+    }
+
+
+}

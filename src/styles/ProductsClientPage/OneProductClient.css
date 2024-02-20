@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.deital_product_client {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .deital_product_client_page {
+        width: 80%;
+        height: 100%;
+        margin-top: 100px;
+
+        .price {
+            font-size: 2.5vh;
+            color: #FC7227;
+            opacity: 1;
+            font-family: "Outfit", sans-serif;
+        }
+
+        .button_order {
+            padding: 10px 30px;
+            background: #FFB600;
+            font-size: 2vh;
+            font-weight: 450;
+            -webkit-text-stroke: 0.4px;
+            text-transform: capitalize;
+            color: aliceblue;
+            border-radius: 10px;
+            border: none;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button_add_cart {
+            padding: 10px 30px;
+            border: 1px solid #FFB600;
+            font-size: 2vh;
+            font-weight: 450;
+            -webkit-text-stroke: 0.4px;
+            text-transform: capitalize;
+            border-radius: 10px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            text-decoration: none;
+            cursor: pointer;
+            color: #FFB600;
+        }
+
+        .button_order:hover {
+            background: #c99504;
+        }
+
+        .button_add_cart:hover {
+            scale: 1.1;
+            transition: 0.3s;
+            background: rgb(238, 238, 238);
+            border-color: rgb(238, 238, 238);
+        }
+
+        .small_img {
+            img {
+                border: 0.2vh solid rgb(206, 204, 204);
+                margin: 1vh;
+                padding: 0.5vh;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            img:hover {
+                scale: 1.05;
+                transition: 0.3s;
+            }
+        }
+
+        .col {
+            button {
+                transition: 0.3s;
+            }
+
+            button:hover {
+                scale: 1.03;
+                background: rgb(240, 240, 240);
+            }
+
+            span {
+                font-size: 2.2vh;
+            }
+        }
+
+        .title {
+            font-size: 3vh;
+            font-weight: 500;
+        }
+
+        .tat_ca_san_pham {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 32% 32% 32%;
+            column-gap: 2%;
+            row-gap: 0.5%;
+        }
+    }
+}

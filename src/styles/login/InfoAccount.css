@@ -1,0 +1,10 @@
+.infomation_account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .infomation {
+        margin: 100px 0 30px;
+        width: 80%;
+    }
+}

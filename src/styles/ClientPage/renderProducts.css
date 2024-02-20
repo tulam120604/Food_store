@@ -1,0 +1,96 @@
+.boxProductRender {
+    height: 55vh;
+    border-radius: 20px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    filter: drop-shadow(0 1mm 1mm rgb(192, 192, 192));
+
+    a {
+        width: auto;
+        height: 60%;
+
+        img {
+            width: auto;
+            height: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            padding-top: 10px;
+        }
+    }
+
+    img:hover {
+        scale: 1.005;
+        transition: 0.2s;
+    }
+
+    .properties {
+        width: 90%;
+        margin-bottom: 20px;
+
+        a {
+            font-size: 2.5vh;
+            -webkit-text-stroke: 0.1px;
+            opacity: 0.8;
+            letter-spacing: 0.2px;
+            text-transform: capitalize;
+            font-weight: 500;
+            text-decoration: none;
+            color: rgb(32, 32, 32);
+        }
+
+        p {
+            font-size: 1.8vh;
+            -webkit-text-stroke: 0.5px;
+            letter-spacing: 0.3px;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            span {
+                font-size: 2.3vh;
+                color: #FC7227;
+                opacity: 1;
+                font-family: "Outfit", sans-serif;
+            }
+
+            a {
+                padding: 1vh 2vh;
+                background: #FFB600;
+                font-size: 2vh;
+                font-weight: 450;
+                -webkit-text-stroke: 0.4px;
+                text-transform: capitalize;
+                color: aliceblue;
+                border-radius: 10px;
+                border: none;
+                letter-spacing: 1px;
+                transition: 0.3s;
+                cursor: pointer;
+            }
+
+            a:hover {
+                scale: 1.05;
+                transition: 0.3s;
+            }
+
+            img {
+                cursor: pointer;
+                transition: 0.3s;
+                width: 3.5vh;
+            }
+
+            img:hover {
+                scale: 1.05;
+                transition: 0.3s;
+            }
+        }
+    }
+}
