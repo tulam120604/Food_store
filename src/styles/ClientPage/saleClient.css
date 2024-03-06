@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 .saleClientPage {
-    width: 100%;
+    width: 95%;
     display: flex;
-    background: #292933;
+    background: #7BA342;
     padding: 5vh 0;
     justify-content: center;
+    border-radius: 10px;
+    height: 60vh;
 
     .saleClient {
         width: 80%;
@@ -20,25 +22,24 @@
             justify-content: center;
 
             h4 {
-                font-size: 7vh;
+                font-size: 4vh;
                 display: flex;
                 flex-direction: column;
                 text-transform: capitalize;
                 font-weight: 600;
-                -webkit-text-stroke: 2px;
+                -webkit-text-stroke: 1px;
                 letter-spacing: 2px;
                 font-family: "Outfit", sans-serif;
 
                 span {
-                    font-size: 8vh;
-                    -webkit-text-stroke: 3px;
+                    font-size: 3vh;
                     letter-spacing: 4px;
                     color: #FDB500;
                 }
             }
 
             p {
-                font-size: 3vh;
+                font-size: 2.2vh;
                 word-wrap: break-word;
                 font-family: "Outfit", sans-serif;
                 opacity: 0.8;
@@ -51,9 +52,9 @@
                 align-items: center;
 
                 span {
-                    font-size: 15vh;
+                    font-size: 10vh;
                     font-weight: 600;
-                    -webkit-text-stroke: 10px;
+                    -webkit-text-stroke: 5px;
                     letter-spacing: 5px;
                     color: #FDB500;
                 }
@@ -75,6 +76,12 @@
                     scale: 1.1;
                     transition: 0.3s;
                 }
+            }
+        }
+
+        .right {
+            img {
+                height: 45vh;
             }
         }
     }

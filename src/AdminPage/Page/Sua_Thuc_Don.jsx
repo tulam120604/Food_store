@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router-dom"
 import { getOneProduct } from "../../CallApi/products"
+import { dataProductsContext } from "../../DataContext/DataProvide"
 
 
-const Sua_Thuc_Don = ({ onUpdateProduct }) => {
+const Sua_Thuc_Don = () => {
+    const { Sua_San_Pham } = useContext(dataProductsContext)
     // promise form = useParam:
     const { id } = useParams()
 
@@ -13,7 +15,7 @@ const Sua_Thuc_Don = ({ onUpdateProduct }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const onSubmit = (data) => {
         data.loai = Number(data.loai)
-        onUpdateProduct(data)
+        Sua_San_Pham(data)
         // naVi('/admin/products-manager')
         setTimeout(() => {
             naVi('/adminstration/quan_li_thuc_don'), 2000

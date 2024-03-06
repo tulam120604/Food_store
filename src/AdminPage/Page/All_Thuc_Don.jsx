@@ -1,8 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import '../../styles/AdminPage/dashboard.css'
+import { useContext } from 'react';
+import { dataProductsContext } from '../../DataContext/DataProvide';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const All_Thuc_Don = ({ SP, onRemove }) => {
+const All_Thuc_Don = () => {
+    const { allProducts, Xoa_San_Pham, loadingApi } = useContext(dataProductsContext);
 
     // const clickRemove = (idPro) => {
     //     onRemove(idPro)
@@ -15,7 +20,7 @@ const All_Thuc_Don = ({ SP, onRemove }) => {
             </section>
 
             {/* all san pham */}
-            <table className="table ml-5 table-dark">
+            <table className="table capitalize rounded-lg table-dark">
                 <thead >
                     <tr>
                         <th scope="col">#</th>
@@ -29,24 +34,27 @@ const All_Thuc_Don = ({ SP, onRemove }) => {
                         <th scope="col">Tùy chỉnh &#9881;</th>
                     </tr>
                 </thead>
-                {SP.map((pr, i) => {
+                <div className="loadingApi">
+                    {loadingApi ? <FontAwesomeIcon icon={faSpinner} spin /> : ''}
+                </div>
+                {allProducts?.map((pr, i) => {
                     return (<>
-                        <tbody key={i}>
+                        <thead key={i}>
                             <tr key={i}>
-                                <th scope="row">{i + 1}</th>
-                                <th >{pr.id}</th>
-                                <td style={{ width: '80px', height: '80px' }}><img style={{ height: '100%' }} src={pr.image} alt={pr.name} /></td>
-                                <td>{pr.name}</td>
-                                <td>{pr.price}</td>
-                                <td>{pr.title}</td>
-                                <td>{(pr.loai) === 1 ? 'Đồ ăn' : 'Đồ uống'}</td>
-                                <td>{pr.feedback}</td>
-                                <td>
-                                    <button className='btn btn-danger' onClick={() => onRemove(pr.id)}>Xóa</button>
+                                <td scope="col">{i + 1}</td>
+                                <td scope='col'>{pr.id}</td>
+                                <td scope='col' style={{ width: '80px', height: '80px' }}><img style={{ height: '100%' }} src={pr.image} alt={pr.name} /></td>
+                                <td scope='col'>{pr.name}</td>
+                                <td scope='col'>{pr.price}</td>
+                                <td scope='col'>{pr.title}</td>
+                                <td scope='col'>{(pr.loai) === 1 ? 'Đồ ăn' : 'Đồ uống'}</td>
+                                <td scope='col'>{pr.feedback}</td>
+                                <td scope='col'>
+                                    <button className='btn btn-danger' onClick={() => Xoa_San_Pham(pr.id)}>Xóa</button>
                                     <Link to={`${pr.id}/sua_thuc_don`}><button className='btn btn-primary ml-3'>Sửa</button></Link>
                                 </td>
                             </tr>
-                        </tbody>
+                        </thead>
                     </>)
                 })}
             </table>

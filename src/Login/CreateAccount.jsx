@@ -2,7 +2,8 @@
 import { Link } from 'react-router-dom'
 import '../styles/login/Login.css'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { tatCaTaiKhoan } from '../App';
 
 
 
@@ -11,17 +12,11 @@ const CreateAccount = ({ createAccount }) => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const handleCreateAcc = (dataForm) => {
-        // console.log(dataForm);
-        // check confirm pas
         if (dataForm.confirmPassword != dataForm.password) {
             setConfirmPass('Mật khẩu không đúng')
         }
         else {
-            console.log('đã đúng');
-            createAccount(dataForm);
-            // setTimeout(() => {
-            //     chuyenTrang('/login')
-            // }, 2000)
+            (checkPassword !== '') ? '' : createAccount(dataForm);
         }
     }
 
@@ -34,6 +29,30 @@ const CreateAccount = ({ createAccount }) => {
         else {
             setCheckPassword('Mật khẩu phải dài từ 6 đến 20 kí tự')
         }
+    }
+
+    // check box
+    const checkBox = (e) => {
+        if (e.target.checked) {
+            console.log(1);
+        }
+        else {
+            console.log(2);
+        }
+    }
+
+    // check email đã có chưa 
+    const allAcount = useContext(tatCaTaiKhoan);
+
+    const [mail, setMail] = useState('')
+    const checkEmail = (e) => {
+        allAcount.forEach(element => {
+            console.log(element.email);
+            if (e.target.value === element.email) {
+                console.log('mail đã tồn tại');
+                setMail('Email đã tồn tại !')
+            }
+        })
     }
 
     return (<>
@@ -57,8 +76,8 @@ const CreateAccount = ({ createAccount }) => {
                                                     message: 'Địa chỉ email không hợp lệ !'
                                                 }
                                             })}
-                                            placeholder="E-mail" />
-                                        {errors.email && <p>{errors.email.message}</p>}
+                                            placeholder="E-mail" onBlur={checkEmail} />
+                                        {errors.email ? <p>{errors.email.message}</p> : <p>{mail}</p>}
                                     </div>
                                     <div className="col-md-12">
                                         <input className="form-control" type="password"
@@ -73,7 +92,7 @@ const CreateAccount = ({ createAccount }) => {
                                         {errors.confirmPassword ? <p>Xác nhận mật khẩu không được để trống !</p> : <p>{confirmPass}</p>}
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" />
+                                        <input onChange={checkBox} className="form-check-input" type="checkbox" defaultValue id="invalidCheck" />
                                         <label className="form-check-label text-gray-200 ">Chấp nhận điều khoản dịch vụ</label>
                                     </div>
 

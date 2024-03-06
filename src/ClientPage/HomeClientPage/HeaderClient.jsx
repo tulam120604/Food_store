@@ -1,18 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import '../../styles/ClientPage/headerClient.css'
 import { Link, NavLink } from 'react-router-dom'
-const HeaderClient = ({ linkPage, dataUser, soLuongItem_cart }) => {
+import { linkPage } from '../../App'
+const HeaderClient = ({ dataUser, soLuongItem_cart }) => {
+    const Page = useContext(linkPage)
     let user = ''
     let nameUser = ''
     if (dataUser !== undefined) {
         user = dataUser.user
         nameUser = user.nameAcc
     }
-
-
-
-
 
     const [scrollHeader, setScrollHeader] = useState(false)
 
@@ -33,15 +31,15 @@ const HeaderClient = ({ linkPage, dataUser, soLuongItem_cart }) => {
         <div className="headerClient" style={{ boxShadow: scrollHeader ? '1mm 1mm 3mm black' : '' }}>
             <header style={{ height: scrollHeader ? '60px' : '80px' }}>
                 <NavLink to='/'>
-                    <span onClick={() => scrollTo(0, 0)} >food</span>
+                    <span onClick={() => scrollTo(0, 0)}>food</span>
                     <img onClick={() => scrollTo(0, 0)} src="../src/assets/images/iconLogo.png" alt="" />
                 </NavLink>
 
-                <div className="sidebar">
+                <div className="sidebar" key={Page}>
                     <section>
-                        {linkPage.map((value, key) => {
+                        {Page.map((value) => {
                             return (<>
-                                <NavLink className='menuNavLink ' key={key} to={value.link} style={({ isActive }) => ({
+                                <NavLink className='menuNavLink ' key={value.name} to={value.link} style={({ isActive }) => ({
                                     background: isActive ? '#1b1b22' : '',
                                     opacity: isActive ? '1' : ''
                                 })}>{value.name}</NavLink>

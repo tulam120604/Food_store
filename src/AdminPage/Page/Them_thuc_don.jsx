@@ -2,18 +2,21 @@
 import { useForm } from 'react-hook-form';
 import '../../styles/AdminPage/dashboard.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { dataProductsContext } from '../../DataContext/DataProvide';
 // import { ToastContainer, toast } from 'react-toastify';
 // import SuccessPage from '../Client_Page/SuccessPage';
 
 
-const Them_Thuc_Don = ({ onAddProduct }) => {
+const Them_Thuc_Don = () => {
     // validate form :
     const naVigation = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm()
+    const { Them_San_Pham } = useContext(dataProductsContext)
 
     const onSubmit = (data) => {
         data.loai = Number(data.loai) // convert string to number
-        onAddProduct(data);
+        Them_San_Pham(data)
         // setTimeout(() => { naVigation('/admin/products-manager') }, 1500)
         naVigation('/adminstration/quan_li_thuc_don')
         // toast.success('Đã thêm sản phẩm', { autoClose: 1400 })
@@ -30,8 +33,8 @@ const Them_Thuc_Don = ({ onAddProduct }) => {
                     <div className="order_wrap w-11/12 mt-5">
                         <div className="form_outline">
                             <label className='capitalize font-medium text-slate-50' htmlFor="image">ảnh</label>
-                            <input className='h-11 form-control' type="text" id="image" {...register('image')} />
-                            {/* {errors.image && <span style={{ fontSize: '2vh' }} className='normal-case text-red-600'>Chưa nhập ảnh thực đơn !</span>} */}
+                            <input className='h-11 form-control' type="text" id="image" {...register('image', { required: true })} />
+                            {errors.image && <span style={{ fontSize: '2vh' }} className='normal-case text-red-600'>Chưa nhập ảnh thực đơn !</span>}
                         </div>
                         <div className="form_outline">
                             <label className='mt-3.5 capitalize font-medium text-slate-50' htmlFor="text">tên thực đơn</label>

@@ -9,26 +9,20 @@ const FooterClient = () => {
                             <span>food</span>
                             <img src="../src/assets/images/iconLogo.png" alt="" />
                         </div>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <p>Hotline: 0987 654 jqk</p>
+                        <p>Địa chỉ : 96/69S phường abc, quận xyz, TP. jqk</p>
+                    </div>
+
+                    <div className="block">
+                        <span>truy cập nhanh</span>
+                        <li>dịch vụ</li>
+                        <li>hỗ trợ</li>
+                        <li>liên hệ</li>
                     </div>
                     <div className="block">
-                        <span>infomation</span>
-                        <li>about us</li>
-                        <li>event</li>
-                        <li>more search</li>
-                    </div>
-                    <div className="block">
-                        <span>helpful links</span>
-                        <li>services</li>
-                        <li>support</li>
-                        <li>tem & coditions</li>
-                        <li>privacy</li>
-                    </div>
-                    <div className="block">
-                        <span>our menu</span>
-                        <li>driver</li>
-                        <li>catalog</li>
-                        <li>launch</li>
+                        <span>theo dõi chúng tôi</span>
+                        <a href='#'>FOOD Shop</a>
+                        <a href='#'>https://www.facebook.jqk/foodshop</a>
                     </div>
                 </div>
                 <h6>copyright 2024@ by cao tu lam</h6>

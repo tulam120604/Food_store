@@ -1,9 +1,8 @@
 import { createContext, useEffect, useState } from 'react'
 import './App.css'
-import { addProducts, deleteProducts, editProducts, getProducts } from './CallApi/products'
+import { getProducts } from './CallApi/products'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Client from './ClientPage/Client'
-import OurMenuClient from './ClientPage/HomeClientPage/OurMenuClient'
 import HomeClient from './ClientPage/HomeClient'
 import { getAdminPage, getClientPage } from './CallApi/page'
 import AllProductsClient from './ClientPage/ProductsClientPage/allProductsClient'
@@ -11,7 +10,7 @@ import Login from './Login/Login'
 import CreateAccount from './Login/CreateAccount'
 import { create_account, login_account } from './CallApi/login'
 import { useLocalStorage } from './Hooks/useStrorage'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import InfoAccount from './ClientPage/InfoAccount/InfoAccount'
 import AdminStrationsPage from './AdminPage/AdminStrations'
 import AllMenu from './AdminPage/Page/AllMenu'
@@ -23,17 +22,23 @@ import Cart_Page from './ClientPage/Cart/cart'
 import Thanh_Toan from './ClientPage/ThanhToan/ThanhToan'
 import Swal from 'sweetalert2'
 import instance from './CallApi/config'
+import AllAccount from './AdminPage/Page/allAccount'
+import ProtectedRoute from './ProtectedRoute/Protected'
+import PageNotFound from './PageNotFound/PageNotFound'
 
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const dataContextProducts = createContext()
+// dùng useContext để truyền dữ liệu
+export const dataContextProducts = createContext();
 export const soLuongTrangClient = createContext();
+export const tatCaTaiKhoan = createContext();
+export const linkPage = createContext()
 
 
 function App() {
   const goPage = useNavigate();
 
-  // lấy dữ liệu người dùng qua localStorag
+  // lấy dữ liệu người dùng qua localStorage
 
   // link page :
   const [pageClient, setPageClient] = useState([])
@@ -56,73 +61,19 @@ function App() {
   }
   useEffect(dataAllProducts, [])
 
-  // thêm sản phẩm  
-  const Them_Product = async (productNew) => {
-    try {
-      const data = await addProducts(productNew);
-      setProducts([...products, data])
-      toast.success('Đã thêm thực đơn.', { autoClose: 1200 })
-    } catch (error) {
-      toast.error('Thêm thực đơn thất bại.', { autoClose: 1200 })
-      console.log(error);
-    }
-  }
-
-  // xóa sản phẩm
-  const handleRemove = async (idProducts) => {
-    try {
-      await
-        Swal.fire({
-          title: `Chắc chắn xóa sản phẩm mã ${idProducts} ?`,
-          text: "Chọn xác nhận để xóa, hoặc hủy để hủy thao tác !",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Xác nhận!",
-          cancelButtonText: "Hủy!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            deleteProducts(idProducts);
-            const products_con_lai = products.filter((item) => item.id !== idProducts);
-            setProducts(products_con_lai);
-            toast.success("Đã xóa thực đơn.", { autoClose: 1200 })
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-          }
-        });
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // sửa sản phẩm :
-  const handleEditProduct = async (product_edit) => {
-    try {
-      await editProducts(product_edit);
-      setProducts(products.map((item) => (item.id === product_edit.id) ? product_edit : item))
-    } catch (error) {
-      toast.error('Sửa thực đơn thất bại.', { autoClose: 1200 })
-      console.log(error);
-    }
-  }
-
 
   // PAGE
   const [soLuongPage, setSoLuongPage] = useState([])
-  const listTrang = async () => {
-    try {
-      const { data } = await instance.get('pagesClient');
-      setSoLuongPage(data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  useEffect(listTrang, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await instance.get('pagesClient');
+        setSoLuongPage(data)
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  }, []);
 
   // ACCOUNT
   // tạo tài khoản
@@ -149,7 +100,7 @@ function App() {
   const [loadingApiLogin, setLoadingApiLogin] = useState(false);
 
   const [saiThongTin, setSaiThongTin] = useState('');
-  const [user, setUser] = useLocalStorage()
+  const [user, setUser] = useLocalStorage('account',)
   const handleLogin = async (acc) => {
     setLoadingApiLogin(true)
     try {
@@ -192,6 +143,20 @@ function App() {
     });
   }
 
+
+  // lấy danh sách tài khoản
+  const [accounts, setAccount] = useState([])
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await instance.get('users');
+        setAccount(data)
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  }, [])
+
   // _______________ADMIN________________
   // page
   const [adminstrationPage, setAdminstrationPage] = useState([]);
@@ -207,19 +172,26 @@ function App() {
   // ______________-GIỎ HÀNG________________
   const [cart, setCart] = useState([])
   const handleAddCart = (dataSP_da_them) => {
-    setCart([...cart, dataSP_da_them])
+    const locItemTrung = cart.some((element) => element.id === dataSP_da_them.id);
+    if (locItemTrung) {
+      setCart((cart) => cart.map((s_pham) => s_pham.id === dataSP_da_them.id ?
+        { ...s_pham, soluongItem: s_pham.soluongItem + 1 } : s_pham
+      ))
+      return;
+    }
+    setCart([{ ...dataSP_da_them, soluongItem: 1 }, ...cart])
   }
+
 
   return (
     <>
       <Routes>
         {/* client */}
-        <Route path='/' element={
-          <Client
-            page={pageClient}
+        <Route path='/' element={<linkPage.Provider value={pageClient}>
+          < Client
             dataUser={user}
             soLuongItem_cart={cart}
-          />} >
+          /></linkPage.Provider>} >
           <Route index element={<dataContextProducts.Provider value={products}>
             <HomeClient
               addToCart={handleAddCart}
@@ -234,20 +206,22 @@ function App() {
           <Route path='products_food/:id' element={<dataContextProducts.Provider value={products}>
             <OneProductClient />
           </dataContextProducts.Provider>} />
-          <Route path='service_client' element={<OurMenuClient />} />
-          <Route path='about_us_client' element />
-          <Route path='contact_us_client' element />
+          <Route path='service_client' element={
+            <h2>Service client page</h2>} />
+          <Route path='about_us_client' element={<h2>About us client page</h2>} />
+          <Route path='contact_us_client' element={<h2>Contact client page</h2>} />
           <Route path='cart' element={
             <Cart_Page
-              gioHang={cart} />} />
+              gioHang={cart}
+            />} />
           <Route path='thanh_toan/:id' element={<Thanh_Toan />} />
           <Route path='login' element={<Login
             loginAccount={handleLogin}
             loadingAPI={loadingApiLogin}
             saithongtin={saiThongTin} />} />
-          <Route path='create_account' element={<CreateAccount
+          <Route path='create_account' element={<tatCaTaiKhoan.Provider value={accounts}><CreateAccount
             createAccount={handleCreateAccount}
-          />} />
+          /></tatCaTaiKhoan.Provider>} />
 
           <Route path='infomation_account' element={<InfoAccount
             dataUser={user}
@@ -256,22 +230,21 @@ function App() {
         </Route>
 
         {/* admin */}
-        <Route path='/adminstration' element={<AdminStrationsPage
+        <Route path='/adminstration' element={<ProtectedRoute><AdminStrationsPage
           page={adminstrationPage}
-        />}>
+        /></ProtectedRoute>}>
           <Route path='quan_li_menu' element={<soLuongTrangClient.Provider value={soLuongPage}>
             <AllMenu />
           </soLuongTrangClient.Provider>} />
-          <Route path='quan_li_thuc_don' element={<All_Thuc_Don
-            SP={products}
-            onRemove={handleRemove} />} />
-          <Route path='them_thuc_don' element={<Them_Thuc_Don
-            onAddProduct={Them_Product} />} />
-
+          <Route path='quan_li_thuc_don' element={<All_Thuc_Don />} />
+          <Route path='them_thuc_don' element={<Them_Thuc_Don />} />
           <Route path='quan_li_thuc_don/:id/sua_thuc_don' element={<Sua_Thuc_Don
-            onUpdateProduct={handleEditProduct}
           />} />
+          <Route path='quan_li_tai_khoan' element={<tatCaTaiKhoan.Provider value={accounts}>
+            <AllAccount />
+          </tatCaTaiKhoan.Provider>} />
         </Route>
+        <Route path='*' element={<PageNotFound />} />
       </Routes >
       <ToastContainer />
     </>

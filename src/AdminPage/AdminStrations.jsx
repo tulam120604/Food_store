@@ -18,7 +18,7 @@ const AdminStrationsPage = ({ page }) => {
             </div>
 
             {/* dashboard */}
-            <div className="mainAdmin">
+            <div className="mainAdmin  bg-slate-900">
                 <div className="block1 text-slate-50">
                     <div style={{ padding: '9.5px 0' }} className="blockTop">
                         <input className="ml-5" type="text" placeholder="Search" />
@@ -29,8 +29,8 @@ const AdminStrationsPage = ({ page }) => {
                     <Outlet />
                 </div>
             </div>
-            <FooterAdmin />
         </div>
+        <FooterAdmin />
     </>);
 }
 

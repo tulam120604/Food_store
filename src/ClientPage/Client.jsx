@@ -5,11 +5,10 @@ import HeaderClient from "./HomeClientPage/HeaderClient"
 
 
 
-const Client = ({ page, dataUser, soLuongItem_cart }) => {
+const Client = ({ dataUser, soLuongItem_cart }) => {
 
     return (<>
         <HeaderClient
-            linkPage={page}
             dataUser={dataUser}
             soLuongItem_cart={soLuongItem_cart}
         />

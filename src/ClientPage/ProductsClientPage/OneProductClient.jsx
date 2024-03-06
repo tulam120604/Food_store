@@ -128,7 +128,6 @@ const OneProductClient = () => {
 
                                             </div>
                                         </div>
-
                                         <form >
                                             <div className="order_wrap w-11/12 mt-5">
                                                 <div className="form_outline">
@@ -136,7 +135,7 @@ const OneProductClient = () => {
                                                     {/* {errors.name && <span style={{ fontSize: '2vh' }} className='normal-case text-red-600'>Chưa nhập bình luận !</span>} */}
                                                 </div>
                                                 <div className="form-check d-flex justify-content-center mb-4">
-                                                    <button type="submit" className="btn btn-primary btn-block mb-4 bg-sky-800 capitalize mt-2">
+                                                    <button className="btn btn-primary btn-block mb-4 bg-sky-800 capitalize mt-2">
                                                         gửi bình luận
                                                     </button>
                                                 </div>
@@ -179,7 +178,6 @@ const OneProductClient = () => {
                                                         </div>
                                                     </>)
                                                 })}
-
                                             </div>
                                         </div>
                                     </div>

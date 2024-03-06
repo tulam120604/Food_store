@@ -20,18 +20,6 @@ const Cart_Page = ({ gioHang }) => {
     const [tonggiatridonhang, setTonggiatridonhang] = useState(tongGia);
 
 
-    const [soluongSP, setSoluongSP] = useState(1)
-    const tang = () => {
-        setTonggiatridonhang(tongGia * soluongSP);
-        setSoluongSP(soluongSP + 1)
-    }
-    const giam = () => {
-        setSoluongSP(soluongSP - 1)
-        if (soluongSP === 1) {
-            setSoluongSP(1)
-        }
-    }
-
     // áp mã giảm giá
     const onSubmitCode = (dataForm) => {
         for (let i = 0; i < code_giam_gia.length; i++) {
@@ -49,7 +37,6 @@ const Cart_Page = ({ gioHang }) => {
             }
         }
     }
-
 
 
     return (<>
@@ -76,7 +63,11 @@ const Cart_Page = ({ gioHang }) => {
                             </div>
                         </div>
                         {gioHang?.map((item) => {
-                            // console.log(item.id);
+                            let a = item.soluongItem
+                            const tangSoluong = () => {
+                                return a = item.soluongItem + 1
+                            }
+                            console.log(a);
                             return (<>
                                 <div className="row main align-items-center border-bottom">
                                     <div className="col-2"><img className="img-fluid" src={item.image} /></div>
@@ -85,13 +76,14 @@ const Cart_Page = ({ gioHang }) => {
                                         <div className="row"> </div>
                                     </div>
                                     <div className="col">
-                                        <button className='border' onClick={giam}>-</button>
-                                        <span className='mx-4'>{soluongSP}</span>
-                                        <button className='border' onClick={tang}>+</button>
+                                        <button className='border' onClick={() => (a = item.soluongItem - 1)}>-</button>
+                                        <span className='mx-4'>{a}</span>
+                                        <button className='border' onClick={tangSoluong}>+</button>
                                     </div>
-                                    <div style={{ fontSize: '2.3vh' }} className="col flex text-orange-500 font-medium">{item.price * soluongSP} Đ <span className="close">✕</span></div>
+                                    <div style={{ fontSize: '2.3vh' }} className="col flex text-orange-500 font-medium">{item.price} Đ <span className="close">✕</span></div>
                                 </div>
                             </>)
+
                         })}
                         <Link to="/products_food"><button className="back-to-shop">←<span>Trở về thực cửa hàng</span></button></Link>
                     </div>

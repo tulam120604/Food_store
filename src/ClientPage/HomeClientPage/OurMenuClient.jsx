@@ -2,29 +2,35 @@
 import { Link } from 'react-router-dom'
 import '../../styles/ClientPage/ourMenuClient.css'
 import ComponentProductsRender from '../ComponentProductsRender'
-import { dataContextProducts } from '../../App'
-import { useContext } from 'react'
+import { useEffect, useState } from 'react'
+import instance from '../../CallApi/config'
 const OurMenuClient = ({ addToCart }) => {
-    const dataProducts = useContext(dataContextProducts)
-    const dataOurMenuClient = dataProducts.slice(0, 6);
+
+    const [dataProductsOurMenu, setDataProductsOurMenu] = useState([]);
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await instance.get(`products?_limit=8`);
+                setDataProductsOurMenu(data)
+            } catch (error) {
+                console.log(error);
+            }
+        })()
+    }, [])
 
     // thêm vào giỏ hàng
     return (<>
         <div className="ourMenuClient">
             <div className="ourMenu">
                 <div className="title_Our_Menu">
-                    <span>our <b>menu</b></span>
-                    <p>we are company engaged in the field food services
-                        width a very wide range throughout viet nam
-                    </p>
+                    <span>&#9832;thực đơn</span>
                 </div>
 
                 <div className="products_our_menu">
-                    {dataOurMenuClient.map((item, index) => {
+                    {dataProductsOurMenu.map((item) => {
                         return (<>
                             <ComponentProductsRender
                                 item={item}
-                                key={index}
                                 addToCart={addToCart}
                             />
                         </>)

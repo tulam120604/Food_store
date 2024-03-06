@@ -1,41 +1,39 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { tatCaTaiKhoan } from "../../App";
 
-const AllAccountPage = ({ accountManager, onRemove }) => {
+
+const AllAccount = () => {
+    const listAccount = useContext(tatCaTaiKhoan);
     return (<>
-        <div style={{ height: '86vh' }} className="accountManagerAdmin text-slate-50">
+        <div style={{ height: '86vh' }} className="cateloriesAdmin text-slate-50">
             <section>
-                <span className="h3 ml-5">Quản lý tài khoản</span>
+                <span className="h3 ml-5">Danh sách tài khoản</span>
             </section>
             <table className="table capitalize rounded-lg table-dark">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ID tài khoản</th>
-                        <th scope="col">Tên tài khoản</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tên đăng nhập</th>
                         <th scope="col">Mật khẩu</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Loại tài khoản</th>
                         <th scope="col">Tùy chỉnh &#9881;</th>
                     </tr>
                 </thead>
-                {accountManager.map((item, i) => {
+                {listAccount?.map((item, key) => {
                     return (<>
-                        <tbody>
-                            <tr key={i}>
-                                <th scope="row">{i + 1}</th>
-                                <th>{item.id}</th>
-                                <td className="normal-case">{item.userAccount}</td>
-                                <td>{item.password}</td>
-                                <td className="normal-case">{item.email}</td>
-                                <td>{(item.role) === 1 ? 'Quản trị' : 'người dùng'}</td>
-                                <td>
-                                    <button className='btn btn-danger' onClick={() => onRemove(item.id)}>Xóa</button>
-                                    <Link to={`${item.id}/edit-account-manager`}><button className='btn btn-primary ml-3'>Sửa</button></Link>
-                                </td>
+                        <thead key={key}>
+                            <tr key={key}>
+                                <td scope="col">{key + 1}</td>
+                                <td scope="col">{item.id}</td>
+                                <td scope="col">{item.nameAcc}</td>
+                                <td scope="col">{item.password}</td>
+                                <td scope="col">{item.email}</td>
+                                <td scope="col"><button className="btn btn-primary">Thay đổi thông tin</button></td>
                             </tr>
-                        </tbody>
+                        </thead>
                     </>)
                 })}
             </table>
@@ -43,4 +41,4 @@ const AllAccountPage = ({ accountManager, onRemove }) => {
     </>)
 }
 
-export default AllAccountPage
+export default AllAccount
